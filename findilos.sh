@@ -4,7 +4,7 @@
 #            The iLO is the Integrated Lights-Out management processor
 #            used on HP ProLiant and BladeSystem servers
 #
-scriptversion="1.0"
+scriptversion="1.1"
 #
 # Author: iggy@nachotech.com
 #
@@ -89,6 +89,9 @@ cat > $ilohwvers << EOF
 iLO-1 shows hw version ASIC:  2
 iLO-2 shows hw version ASIC:  7
 iLO-3 shows hw version ASIC: 8
+iLO-3 shows hw version ASIC: 9
+iLO-4 shows hw version ASIC: 12
+iLO-4 shows hw version ASIC: 16
 i-iLO shows hw version T0
 EOF
 
@@ -109,9 +112,9 @@ printf "\n\n"
 
 exec 3< $iloips
 
-echo "--------------- ------ -------- ------------ -------------------------"
-echo "iLO IP Address  iLO HW iLO FW   Server S/N   Server Model"
-echo "--------------- ------ -------- ------------ -------------------------"
+echo "--------------- ------ -------- ------------ ------------------------- -------------------- -----------------------------"
+echo "iLO IP Address  iLO HW iLO FW   Server S/N   Server Model              iLO Edition          iLO Licence Key"
+echo "--------------- ------ -------- ------------ ------------------------- -------------------- -----------------------------"
 
 while read iloip <&3 ; do
   ilosfound=$ilosfound+1
@@ -140,7 +143,13 @@ while read iloip <&3 ; do
     sernum="N/A"
   fi
 
-  printf "%-15s %-6s %-8s %-12s %s\n" $iloip "$ilohwver" "$ilofirmware" "$sernum" "$servermodel"
+  # add start
+  curl --proxy "" --fail --silent --max-time 3 http://$iloip/xmldata?item=CpqKey > $iloxml
+  parseiloxml LNAME; ilomodel=$parsedstring
+  parseiloxml KEY; ilokey=$parsedstring
+  # add end
+
+  printf "%-15s %-6s %-8s %-12s %-25s %-20s %-30s\n" $iloip "$ilohwver" "$ilofirmware" "$sernum" "$servermodel" "$ilomodel" "$ilokey"
 
 done
 
