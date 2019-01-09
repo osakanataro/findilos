@@ -3,7 +3,7 @@ Search a local network segment for iLOs
 The iLO is the Integrated Lights-Out management processor
 used on HP ProLiant and BladeSystem servers
 
-Original Author: iggy@nachotech.com
+Original Author: iggy _at_ nachotech.com
 
 Requires: tr sed expr curl nmap
 
