@@ -4,7 +4,7 @@
 #            The iLO is the Integrated Lights-Out management processor
 #            used on HP ProLiant and BladeSystem servers
 #
-scriptversion="1.1"
+scriptversion="1.2"
 #
 # Author: iggy@nachotech.com
 #
@@ -92,6 +92,8 @@ iLO-3 shows hw version ASIC: 8
 iLO-3 shows hw version ASIC: 9
 iLO-4 shows hw version ASIC: 12
 iLO-4 shows hw version ASIC: 16
+iLO-5 shows hw version ASIC: 19
+iLO-5 shows hw version ASIC: 21
 i-iLO shows hw version T0
 EOF
 
